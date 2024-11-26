@@ -24,7 +24,8 @@ message ZAttestResponse {
   ZAttestRespType respType = 1;    //type of the response
   ZAttestNonceResp nonce = 2;      //nonce from Controller
   ZAttestQuoteResp quoteResp = 3;  //attest quote response from Controller
-  AttestStorageKeysResp  storage_keys_resp = 4;   //attest storage_keys response from Controller
+  AttestStorageKeysResp storage_keys_resp = 4;   //attest storage_keys response from Controller
+  AttestSecureLogKeyResp seclog_key_resp = 5;   //attest seclog_key response from Controller
 }
 
 enum ZAttestReqType {
@@ -139,8 +140,8 @@ message ZAttestQuoteResp {
   ZAttestResponseCode response = 1;  // Result of quote validation
   bytes integrity_token = 2;         // Valid if response is ATTEST_RESPONSE_SUCCESS, contains integrity token for device to
                                      // Cache and present in the next config request
-  repeated AttestVolumeKey keys = 3; // Valid if response is ATTEST_RESPONSE_SUCCESS, contains keys of type KeyType to unlock
-                                     // volume vault(s)
+  repeated AttestVolumeKey keys = 3; // Valid if response is ATTEST_RESPONSE_SUCCESS, contains keys of type KeyType to unlock volume vault(s)
+  EncryptedSecureLogKey encrypted_seclog_key = 4; // Encrypted (with device wrapping key) secure logging key to be send to the device
 }
 
 //Encrypted data to save and retrievable post successful attestation
@@ -162,5 +163,36 @@ message AttestStorageKeysResp {
 message AttestVolumeKeyData {
   bytes encrypted_key = 1; //key in encrypted format
   bytes digest_sha256 = 2; //SHA 256 digest of the key
+}
+
+// This is used to identify the type of secure log key
+enum AttestSecLogKeyType {
+  ATTEST_SECLOG_KEY_TYPE_INVALID = 0;
+  ATTEST_SECLOG_KEY_TYPE_SLK = 1;
+}
+
+//Response codes for storing secure log keys
+enum AttestSecureLogKeysResponseCode {
+  ATTEST_SECLOG_KEY_RESPONSE_CODE_INVALID = 0;
+  ATTEST_SECLOG_KEY_RESPONSE_CODE_SUCCESS = 1;         // key(s) successfully stored
+  ATTEST_SECLOG_KEY_RESPONSE_CODE_ITOKEN_MISMATCH = 2; // integrity_token was not valid, try after successful attestation
+}
+
+//Response to storing secure log keys
+message AttestSecureLogKeyResp {
+  AttestSecureLogKeysResponseCode response = 1; //Result of processing Z_ATTEST_REQ_TYPE_STORE_KEYS in Controller
+}
+
+// EncryptedSecureLogKey is send to the device by controler, this key is
+// encrypted with the device wrapping key.
+message EncryptedSecureLogKey {
+  AttestSecLogKeyType key_type = 1;
+  bytes key = 2;
+}
+
+//Encrypted data to save and retrievable post successful attestation
+message AttestSecureLogKeys {
+  bytes integrity_token = 1;     // integrity_token provided by controller in the last attestation cycle
+  EncryptedSecureLogKey key = 2; // Encrypted key for Secure logging.
 }
 
