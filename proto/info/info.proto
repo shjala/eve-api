@@ -607,7 +607,7 @@ message ZInfoDevice {
 
   bool maintenance_mode = 38;
   // XXX to be deprecated in favor of maintenance_mode_reasons
-  MaintenanceModeReason maintenance_mode_reason = 39;
+  MaintenanceModeReason maintenance_mode_reason = 39 [deprecated=true];
 
   // Is /dev/watchdog present in the system
   bool hardware_watchdog_present = 40;
@@ -710,6 +710,7 @@ enum MaintenanceModeReason {
   MAINTENANCE_MODE_REASON_VAULT_LOCKED_UP = 2;
   MAINTENANCE_MODE_REASON_LOW_DISK_SPACE = 3;
   MAINTENANCE_MODE_REASON_TPM_ENCRYPTION_FAILURE = 4;
+  MAINTENANCE_MODE_REASON_TPM_QUOTE_FAILURE = 5;
 }
 
 // Information about attestation process
