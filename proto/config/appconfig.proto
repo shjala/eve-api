@@ -213,6 +213,9 @@ message AppInstanceConfig {
 
   // Custom resolution applies to VM that is running in FML mode only.
   string vm_resolution = 27;
+
+  // The app should receive the embedded Windows license key
+  bool oem_win_license_key = 28;
 }
 
 message PatchEnvelopeRef {
