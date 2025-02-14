@@ -92,4 +92,6 @@ message VmConfig {
   // is limited. Depending on the application's operating system, achieving the desired network
   // interface order might not be possible.
   bool enforce_network_interface_order = 24;
+  // The app should receive the Windows license embedded in ACPI tables
+  bool enable_oem_win_license_key = 25;
 }
