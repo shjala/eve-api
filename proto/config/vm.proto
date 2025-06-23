@@ -94,4 +94,7 @@ message VmConfig {
   bool enforce_network_interface_order = 24;
   // The app should receive the Windows license embedded in ACPI tables
   bool enable_oem_win_license_key = 25;
+  // Disable vTPM for the VM, this defaults to false according to the
+  // proto3 specification.
+  bool disable_vtpm = 26;
 }
