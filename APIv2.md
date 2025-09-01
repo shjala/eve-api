@@ -243,8 +243,6 @@ Return codes:
 
 Request:
 
-The request MUST use HTTP for this request
-
 The request MUST NOT contain any body content
 
 Response:
