@@ -248,7 +248,7 @@ The request MUST NOT contain any body content
 Response:
 
 The response mime type MUST be "application/x-proto-binary".
-The response MUST contain a message with a list of certificates Controller is using. The body MUST be a protobuf message of type [certs.ZControllerCert](./proto/certs/certs.proto).
+The response MUST contain a message with a list of certificates Controller is using. The body MUST be a protobuf message of type AuthContainer where the AuthBody is a protobuf message of type [certs.ZControllerCert](./proto/certs/certs.proto).
 
 ### Attestation
 
