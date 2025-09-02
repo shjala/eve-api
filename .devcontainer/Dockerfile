@@ -9,7 +9,7 @@ ARG OPENAPI_VERSION=91958df0371da5c71794adc92e21cf8fed58df97 # v2.27.2
 ARG GRPC_GATEWAY_VERSION=91958df0371da5c71794adc92e21cf8fed58df97 # 2.27.2
 ARG PROTO_GEN_VALIDATE_VERSION=7b06248484ceeaa947e93ca2747eccf336a88ecc # v1.2.1
 ARG GOOGLEAPIS_VERSION=376467058c288ad34dd7aafa892a95883e4acd0c # master
-ARG PROTO_DEPS_DIR=.proto_deps
+ARG PROTO_DEPS_DIR=/proto/.proto_deps
 
 RUN apk add --no-cache bash curl git make graphviz ttf-freefont
 

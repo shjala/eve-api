@@ -1,6 +1,6 @@
 .DEFAULT_GOAL := proto
 
-PROTO_DEPS_DIR := ../.proto_deps
+PROTO_DEPS_DIR := /proto/.proto_deps
 PROTOC_COMMON_FLAGS := --proto_path=$(PROTO_DEPS_DIR)/googleapis \
 	--proto_path=$(PROTO_DEPS_DIR)/protoc-gen-validate \
 	--proto_path=$(PROTO_DEPS_DIR)/grpc-gateway
@@ -13,7 +13,7 @@ help:
 	@echo "  swagger           Generate Swagger/OpenAPI documentation"
 
 proto-container:
-	docker build -f .devcontainer/Dockerfile -t eve-api-builder .
+	docker build -f .devcontainer/Dockerfile --build-arg PROTO_DEPS_DIR=$(PROTO_DEPS_DIR) -t eve-api-builder .
 
 proto-diagram:
 	protodot -inc /usr/local/include -src ./proto/config/devconfig.proto -output devconfig -generated ./images
