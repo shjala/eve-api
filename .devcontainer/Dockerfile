@@ -1,5 +1,6 @@
 # syntax=docker/dockerfile:1.6.0
 FROM alpine:3.18
+SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
 
 ARG TARGETOS=linux
 ARG TARGETARCH
@@ -45,22 +46,22 @@ RUN arch="$(uname -m)" && \
 
 # Download googleapis proto
 RUN mkdir -p "${PROTO_DEPS_DIR}" && \
-	curl -L https://github.com/googleapis/googleapis/archive/${GOOGLEAPIS_VERSION}.tar.gz | \
-	tar -xz -C "${PROTO_DEPS_DIR}" && \
-	mv "${PROTO_DEPS_DIR}/googleapis-${GOOGLEAPIS_VERSION}" "${PROTO_DEPS_DIR}/googleapis"
+    curl -L https://github.com/googleapis/googleapis/archive/${GOOGLEAPIS_VERSION}.tar.gz | \
+    tar -xz -C "${PROTO_DEPS_DIR}" && \
+    mv "${PROTO_DEPS_DIR}/googleapis-${GOOGLEAPIS_VERSION}" "${PROTO_DEPS_DIR}/googleapis"
 
 
 # Download protoc-gen-validate proto
 RUN mkdir -p "${PROTO_DEPS_DIR}" && \
-	curl -L https://github.com/bufbuild/protoc-gen-validate/archive/${PROTO_GEN_VALIDATE_VERSION}.tar.gz | \
-	tar -xz -C "${PROTO_DEPS_DIR}" && \
-	mv "${PROTO_DEPS_DIR}/protoc-gen-validate-${PROTO_GEN_VALIDATE_VERSION}" "${PROTO_DEPS_DIR}/protoc-gen-validate"
+    curl -L https://github.com/bufbuild/protoc-gen-validate/archive/${PROTO_GEN_VALIDATE_VERSION}.tar.gz | \
+    tar -xz -C "${PROTO_DEPS_DIR}" && \
+    mv "${PROTO_DEPS_DIR}/protoc-gen-validate-${PROTO_GEN_VALIDATE_VERSION}" "${PROTO_DEPS_DIR}/protoc-gen-validate"
 
 # Download grpc-gateway
 RUN mkdir -p "${PROTO_DEPS_DIR}" && \
-	curl -L https://github.com/grpc-ecosystem/grpc-gateway/archive/${GRPC_GATEWAY_VERSION}.tar.gz | \
-	tar -xz -C "${PROTO_DEPS_DIR}" && \
-	mv "${PROTO_DEPS_DIR}/grpc-gateway-${GRPC_GATEWAY_VERSION}" "${PROTO_DEPS_DIR}/grpc-gateway"
+    curl -L https://github.com/grpc-ecosystem/grpc-gateway/archive/${GRPC_GATEWAY_VERSION}.tar.gz | \
+    tar -xz -C "${PROTO_DEPS_DIR}" && \
+    mv "${PROTO_DEPS_DIR}/grpc-gateway-${GRPC_GATEWAY_VERSION}" "${PROTO_DEPS_DIR}/grpc-gateway"
 
 RUN git clone https://github.com/seamia/protodot.git /protodot
 RUN go build -C /protodot -o /usr/local/bin/protodot .

@@ -7,6 +7,7 @@ import (
 	"github.com/lf-edge/eve-api/go/register"
 )
 
+// TestCase represents a test case for validating register messages.
 type TestCase struct {
 	Name        string
 	Message     *register.ZRegisterMsg
