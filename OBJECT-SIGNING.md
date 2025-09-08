@@ -34,7 +34,8 @@ The `AuthContainer` wrapper is constructed by:
 
 1. Put the above payload in the `protectedPayload` field
 1. Compute Sha256 over the above payload
-1. Compute the ECDSA signature of that sha, and place it in the `signatureHash` field
+1. Compute the ECDSA signature of that sha, and place it in the `signatureHash`
+field, the signature MUST be raw concatenation of r and s.
 1. To identify the sender, place a truncated sha of the sender's certificate in `senderCertHash`
 1. Place the algorithm used for the truncated sha in the `algo` field. Currently it's either a SHA256-32bytes or SHA256-16bytes. Note that `senderCertHash` is just for a lookup at the receiver, hence it can be truncated to be a lot shorter without any security implications.
 1. For the case when the receiver might not be able to identify the sender using just the hash, place the full sender's certificate in the `senderCert` field. This is the base64 standard encoding of the PEM format of the certificate. (This is used for the `register` API during onboarding.)
