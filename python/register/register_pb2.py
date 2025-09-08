@@ -11,9 +11,10 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
+from validate import validate_pb2 as validate_dot_validate__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x17register/register.proto\x12\x17org.lfedge.eve.register\"W\n\x0cZRegisterMsg\x12\x12\n\nonBoardKey\x18\x01 \x01(\t\x12\x0f\n\x07pemCert\x18\x02 \x01(\x0c\x12\x0e\n\x06serial\x18\x03 \x01(\t\x12\x12\n\nsoftSerial\x18\x04 \x01(\tBA\n\x17org.lfedge.eve.registerZ&github.com/lf-edge/eve-api/go/registerb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x17register/register.proto\x12\x17org.lfedge.eve.register\x1a\x17validate/validate.proto\"\x8d\x01\n\x0cZRegisterMsg\x12\x16\n\nonBoardKey\x18\x01 \x01(\tB\x02\x18\x01\x12\x1b\n\x07pemCert\x18\x02 \x01(\x0c\x42\n\xfa\x42\x07z\x05\x10\x64\x18\x80P\x12\x18\n\x06serial\x18\x03 \x01(\tB\x08\xfa\x42\x05r\x03\x18\x80\x02\x12.\n\nsoftSerial\x18\x04 \x01(\tB\x1a\xfa\x42\x17r\x15\x18\x80\x02\x32\x10^[a-zA-Z0-9_-]*$BA\n\x17org.lfedge.eve.registerZ&github.com/lf-edge/eve-api/go/registerb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -22,6 +23,14 @@ if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'\n\027org.lfedge.eve.registerZ&github.com/lf-edge/eve-api/go/register'
-  _globals['_ZREGISTERMSG']._serialized_start=52
-  _globals['_ZREGISTERMSG']._serialized_end=139
+  _ZREGISTERMSG.fields_by_name['onBoardKey']._options = None
+  _ZREGISTERMSG.fields_by_name['onBoardKey']._serialized_options = b'\030\001'
+  _ZREGISTERMSG.fields_by_name['pemCert']._options = None
+  _ZREGISTERMSG.fields_by_name['pemCert']._serialized_options = b'\372B\007z\005\020d\030\200P'
+  _ZREGISTERMSG.fields_by_name['serial']._options = None
+  _ZREGISTERMSG.fields_by_name['serial']._serialized_options = b'\372B\005r\003\030\200\002'
+  _ZREGISTERMSG.fields_by_name['softSerial']._options = None
+  _ZREGISTERMSG.fields_by_name['softSerial']._serialized_options = b'\372B\027r\025\030\200\0022\020^[a-zA-Z0-9_-]*$'
+  _globals['_ZREGISTERMSG']._serialized_start=78
+  _globals['_ZREGISTERMSG']._serialized_end=219
 # @@protoc_insertion_point(module_scope)
