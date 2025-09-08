@@ -7,16 +7,45 @@ package org.lfedge.eve.register;
 option go_package  = "github.com/lf-edge/eve-api/go/register";
 option java_package = "org.lfedge.eve.register";
 
-// This is the request payload for POST /api/v1/edgeDevice/register
+// This is imported from protoc-gen-validate
+import "validate/validate.proto";
+
+// This is the request payload for POST /api/v2/edgeDevice/register
 // ZRegisterMsg carries the pem-encoded device certificate plus additional
 // identifying information such as device serial number(s).
 // The message is assumed to be protected by a TLS session bound to the
 // onboarding certificate.
 message ZRegisterMsg {
-  string onBoardKey = 1; // deprecated
-  // deprecated = 1;
+  // Deprecated onboarding key field, kept for backward compatibility only
+  string onBoardKey = 1 [deprecated = true];
 
-  bytes pemCert = 2;
-  string serial = 3;
-  string softSerial = 4;
+  // PEM-encoded device certificate (required for device authentication)
+  // Must contain a valid X.509 certificate in PEM format
+  // Used to establish device identity and trust relationship with controller
+  bytes pemCert = 2 [
+    (validate.rules).bytes = {
+      min_len: 100,      // Minimum reasonable PEM cert size
+      max_len: 10240     // Maximum reasonable PEM cert size (10KB)
+    }
+  ];
+
+  // Hardware serial number (required for device identification),
+  // must be unique identifier from device hardware,
+  // combined with onboard certificate to ensure device uniqueness
+  string serial = 3 [
+    (validate.rules).string = {
+      max_len: 256,                 // Reasonable serial number length limit,
+                                    // since we don't control the serial number
+                                    // the validation rule is relaxed.
+    }
+  ];
+
+  // Software serial number (optional additional device identifier),
+  // provides supplementary identification when available
+  string softSerial = 4 [
+    (validate.rules).string = {
+      max_len: 256,                 // Same limit as hardware serial
+      pattern: "^[a-zA-Z0-9_-]*$"   // Same pattern as serial, but optional
+    }
+  ];
 }
