@@ -115,6 +115,7 @@ message ZAttestQuote {
   repeated TpmEventLogEntry event_log = 4 [deprecated=true]; // Deprecated, TPM Event log
   repeated AttestVersionInfo versions = 5;  // Versions of various software packages, as defined by VersionType
   AttestGPSCoordinates gps_info = 6;        // Geo-Coordinates of the device
+  bytes tpm_binary_event_log = 7;           // TPM binary event log, in the format defined by TCG and gzip-compressed, suprersedes event_log field
 }
 
 enum ZAttestResponseCode {
