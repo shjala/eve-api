@@ -1,4 +1,4 @@
-.DEFAULT_GOAL := proto
+.DEFAULT_GOAL := all
 
 PROTO_DEPS_DIR := /proto/.proto_deps
 PROTOC_COMMON_FLAGS := --proto_path=$(PROTO_DEPS_DIR)/googleapis \
@@ -7,10 +7,13 @@ PROTOC_COMMON_FLAGS := --proto_path=$(PROTO_DEPS_DIR)/googleapis \
 
 help:
 	@echo "Available targets:"
+	@echo "  all               Build protobuf files and generate Go validation rules (default target)"
 	@echo "  help              Show this help message"
-	@echo "  proto             Build protobuf files (default target)"
+	@echo "  proto             Build protobuf files"
 	@echo "  proto-validate-go Generate Go validation rules for protos (should be run after proto)."
 	@echo "  swagger           Generate Swagger/OpenAPI documentation"
+
+all: proto proto-validate-go
 
 proto-container:
 	docker build -f .devcontainer/Dockerfile --build-arg PROTO_DEPS_DIR=$(PROTO_DEPS_DIR) -t eve-api-builder .
@@ -21,7 +24,7 @@ proto-diagram:
 	dot ./images/devconfig.dot -Tsvg -o ./images/devconfig.svg
 	echo generated ./images/devconfig.*
 
-.PHONY: proto-api-% proto proto-container proto-local swagger swagger-local
+.PHONY: all proto-api-% proto proto-container proto-local swagger swagger-local
 
 proto: proto-container
 	docker run --rm --env HOME=/tmp -v $(PWD):/src -w /src -u $$(id -u) eve-api-builder make proto-local
