@@ -284,9 +284,11 @@ following information: `attestData` containing
 signing key, `pcr_values` containing values of PCR 0-15, `versions` containing
 current versions of various software components running on the device (e.g. EVE,
 UEFI etc), `gps_info` containing GPS coordinates of device's geo-location,
-`tpm_binary_event_log` containing standard gzip-compressed TPM binary event
-log as describe in
-[TCG Crypto agile log format](https://trustedcomputinggroup.org/wp-content/uploads/TCG-PC-Client-Platform-Firmware-Profile-Version-1.06-Revision-52_pub-3.pdf).
+`tpm_binary_event_log` and `tpm_config_part_event_log` containing standard
+gzip-compressed TPM binary event log as describe in
+[TCG Crypto agile log format](https://trustedcomputinggroup.org/wp-content/uploads/TCG-PC-Client-Platform-Firmware-Profile-Version-1.06-Revision-52_pub-3.pdf),
+with former being the measured boot TPM event log and the latter containing
+the config partition measurements.
 
 If `reqType` is `Z_ATTEST_REQ_TYPE_STORE_KEYS`, then `storage_keys` field must be filled with the following information: `integrity_token` containing integrity_token value given by Controller for the current attestation cycle and `keys` containing keys of type `AttestVolumeKey`, which are the decryption keys used by the device for encryption of its volume(s)
 

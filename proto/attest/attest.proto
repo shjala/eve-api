@@ -116,6 +116,7 @@ message ZAttestQuote {
   repeated AttestVersionInfo versions = 5;  // Versions of various software packages, as defined by VersionType
   AttestGPSCoordinates gps_info = 6;        // Geo-Coordinates of the device
   bytes tpm_binary_event_log = 7;           // TPM binary event log, in the format defined by TCG and gzip-compressed, suprersedes event_log field
+  bytes tpm_config_part_event_log = 8;      // Config partition TPM event log, in the format defined by TCG and gzip-compressed
 }
 
 enum ZAttestResponseCode {
