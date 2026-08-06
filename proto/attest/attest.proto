@@ -89,11 +89,13 @@ enum AttestVersionType {
    ATTEST_VERSION_TYPE_INVALID = 0;
    ATTEST_VERSION_TYPE_EVE = 1;      // BaseOS version
    ATTEST_VERSION_TYPE_FIRMWARE = 2; // Firmware version (e.g. UEFI)
+   ATTEST_VERSION_TYPE_EVE_ORIGIN = 3; // EVE initial <date>+<ver>, excludes arch and variant
 }
 
 //examples
 //ATTEST_VERSION_TYPE_EVE, "5.6.1-amd64"
 //ATTEST_VERSION_TYPE_FIRMWARE, "American Megatrends Inc.-5.12"
+//ATTEST_VERSION_TYPE_EVE_ORIGIN, "origin.2024-01-15.13.4.0"
 message AttestVersionInfo {
    AttestVersionType version_type = 1; // One of VersionType
    string version = 2;                 // Version string of the corresponding package
